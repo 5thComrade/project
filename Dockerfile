@@ -3,4 +3,9 @@ RUN npm install -g snyk
 
 FROM alpine:latest
 RUN apk --update add openjdk7-jre
+COPY --from=0 /bin/sh .
+
+
+
+
 
