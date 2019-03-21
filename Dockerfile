@@ -1,8 +1,8 @@
-FROM openjdk:latest
+FROM node:8.0-alpine AS builder
+WORKDIR /app
+RUN npm install -g snyk
+COPY . /app
 
-RUN apt-get install -y curl \
-  && curl -sL https://deb.nodesource.com/setup_9.x | bash - \
-  && apt-get install -y nodejs \
-  && curl -L https://www.npmjs.com/install.sh | sh \
-  
-RUN npm install
+FROM alpine:latest
+RUN apk --update add openjdk7-jre
+COPY --from=0 /app .
